@@ -1,0 +1,25 @@
+# Get firt 100 events with ID 4768 (authentication ticket (TGT) was requested):
+
+Get-WinEvent -FilterHashtable @{LogName = 'Security';ID='4768'} | select -First 100 -Property * | ForEach-Object -Process {New-Object -TypeName PSObject -Property @{'TimeCreated'=$_.TimeCreated; 'Account Name'=$_.properties[0].Value; 
+'Supplied Realm Name'=$_.properties[1].Value;
+'User ID'=$_.properties[2].Value;
+'Service Name'=$_.properties[3].Value;
+'Service ID'=$_.properties[4].Value;
+'Ticket Options'=$_.properties[5].Value;
+'Result Code'='{0:x8}' -f $_.properties[5].Value;
+'EncryptionType'='{0:x2}' -f $_.properties[7].Value}} 
+
+# Get firt 100 events with ID 4769
+
+Get-WinEvent -FilterHashtable @{LogName = 'Security';ID='4769'} | select -First 100 -Property * | ForEach-Object -Process {New-Object -TypeName PSObject -Property @{'TimeCreated'=$_.TimeCreated;
+'TargetUserName'=$_.properties[0].Value;
+'TargetDomainName'=$_.properties[1].Value;
+'ServiceName'=$_.properties[2].Value;
+'ServiceSID'=$_.properties[3].Value;
+'TicketOptions'='{0:x8}' -f $_.properties[4].Value;
+'TicketEncryptionType'='{0:x2}' -f $_.properties[5].Value;
+'IPAdress'=$_.properties[6].Value
+'IPPort'=$_.properties[7].Value
+'Status'=$_.properties[8].Value;
+'Logon GUID'=$_.properties[9].Value;
+'TransmittedServices'=$_.properties[10].Value}}
